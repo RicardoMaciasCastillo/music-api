@@ -8,7 +8,6 @@ export class SongService {
 
     constructor(@InjectRepository(Song) private songRepository: Repository<Song>) {
 
-
     }
 
     public async getSongs(type?: string) {
@@ -42,7 +41,7 @@ export class SongService {
         }
     }
 
-    public async createSong( song: Song ) {
+    public async createSong(song: Song) {
 
         await this.songRepository.save(song);
 
