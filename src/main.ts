@@ -11,6 +11,12 @@ async function bootstrap() {
     const port: number = config.get<number>('PORT');
 
     app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+    
+    app.enableCors({
+        origin: true,
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+        credentials: true,
+    });
 
     await app.listen(port, () => {
         console.log('[Web App Initialized]', `http://localhost:${port}`);
