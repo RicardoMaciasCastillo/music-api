@@ -21,4 +21,17 @@ export class AlbumService {
         return artist.albums;
     }
 
+    public async getAlbumsByArtistId(artistId: number) {
+
+        const albums = await this.albumRepository.find({
+            where: {
+                artist: {
+                    id: artistId
+                }
+            }
+        });
+
+        return albums;
+    }
+
 }

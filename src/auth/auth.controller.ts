@@ -23,6 +23,7 @@ export class AuthController {
 
     @Post('/login')
     private login(@Body() body: LoginRequest): Promise<any> {
+        console.log('LOGINNNN', body);
         return this.service.login(body);
     }
 

@@ -16,6 +16,9 @@ export class Artist extends BaseDataEntity {
     @Column({ name: 'nationality', length: 45, nullable: false })
     nationality: string;
 
+    @Column({ name: 'image_url', length: 255, nullable: true })
+    imageUrl: string;
+
     @OneToMany(() => Song, (song) => song.artist)
     songs: Song[];
 
