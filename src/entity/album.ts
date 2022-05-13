@@ -2,10 +2,12 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { Artist } from "./artist";
 import { Song } from "./song";
 import BaseDataEntity from "./base-data-entity";
+import { ApiProperty } from "@nestjs/swagger";
 
 @Entity('album')
 export class Album extends BaseDataEntity {
     
+    @ApiProperty({ example: 'Album name', description: 'The name of the album' })
     @Column({name:'name', length: 120, nullable: false})
     name: string;
 

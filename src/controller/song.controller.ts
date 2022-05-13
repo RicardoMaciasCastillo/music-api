@@ -1,9 +1,12 @@
 import { JwtAuthGuard } from "@/auth/auth.guard";
 import { CreateSongRequest } from "@/dto/song/create-song-request.dto";
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, Req, UseGuards } from "@nestjs/common";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { Song } from "src/entity/song";
 import { SongService } from "src/service/song.service";
 
+@ApiBearerAuth('JWT')
+@ApiTags('SongController')
 @UseGuards(JwtAuthGuard)
 @Controller({
     path: '/songs'

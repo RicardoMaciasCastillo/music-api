@@ -1,8 +1,11 @@
 import { JwtAuthGuard } from "@/auth/auth.guard";
 import { CreateArtistRequest } from "@/dto/artist/create-artist-request.dto";
 import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from "@nestjs/common";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { ArtistService } from "src/service/artist.service";
 
+@ApiBearerAuth('JWT')
+@ApiTags('ArtistController')
 @UseGuards(JwtAuthGuard)
 @Controller({
     path: '/artists'

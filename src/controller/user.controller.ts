@@ -1,7 +1,10 @@
 import { JwtAuthGuard } from "@/auth/auth.guard";
 import { Controller, Get, Inject, Req, UseGuards } from "@nestjs/common";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { UserService } from "src/service/user.service";
 
+@ApiBearerAuth('JWT')
+@ApiTags('UserController')
 @UseGuards(JwtAuthGuard)
 @Controller({
     path: '/users'

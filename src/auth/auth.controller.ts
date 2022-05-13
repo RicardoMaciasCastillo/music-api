@@ -6,7 +6,10 @@ import { Request } from 'express';
 
 import { SingUpRequest } from '@/dto/auth/sign-up-request.dto';
 import { LoginRequest } from '@/dto/auth/login-request.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth('JWT')
+@ApiTags('AuthController')
 @Controller({
     path: '/auth'
 })
