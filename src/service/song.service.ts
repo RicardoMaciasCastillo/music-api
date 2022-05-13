@@ -1,18 +1,39 @@
-import { Injectable } from "@nestjs/common";
+import { CreateSongRequest } from "@/dto/song/create-song-request.dto";
+import { Album } from "@/entity/album";
+import { Inject, Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { plainToInstance } from "class-transformer";
 import { Song } from "src/entity/song";
 import { Repository } from "typeorm";
+import { FileService } from "./file.service";
 
 @Injectable()
 export class SongService {
 
-    constructor(@InjectRepository(Song) private songRepository: Repository<Song>) {
+    @Inject(FileService)
+    private readonly fileService: FileService;
+
+    constructor(
+        @InjectRepository(Song) private songRepository: Repository<Song>,
+        @InjectRepository(Song) private albumRepository: Repository<Album>) {
+
+    }
+
+    public async getSongsByAlbumId(albumId: number) {
+
+        const songs = await this.songRepository.find({
+            where: {
+                album: {
+                    id: albumId
+                }
+            }
+        });
+
+        return songs;
 
     }
 
     public async getSongs(type?: string) {
-
-        console.log('type:', type);
 
         if (type)
             return await this.songRepository.find({
@@ -41,9 +62,28 @@ export class SongService {
         }
     }
 
-    public async createSong(song: Song) {
+    public async createSong(createSongRequest: CreateSongRequest) {
+
+        console.log('CREATE SONG:', createSongRequest);
+
+        const song = plainToInstance(Song, createSongRequest);
+
+        const album = await this.albumRepository.findOne({
+            where: {
+                id: createSongRequest.albumId
+            }
+        });
+
+        song.album = album;
 
         await this.songRepository.save(song);
+
+        const previewUrl = await this.fileService.uploadSong(
+            song.uuid, album.id, createSongRequest.previewFile);
+
+        await this.songRepository.update(song.id, {
+            previewUrl: previewUrl
+        });
 
         return {
             message: 'Song created well'

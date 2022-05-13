@@ -25,6 +25,7 @@ import { User } from './entity/user';
 // Services
 import { AlbumService } from './service/album.service';
 import { ArtistService } from './service/artist.service';
+import { FileService } from './service/file.service';
 import { SongService } from './service/song.service';
 import { UserService } from './service/user.service';
 import { TypeOrmConfigService } from './shared/typeorm/typeorm.service';
@@ -57,7 +58,8 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
     SongService,
     ArtistService,
     AlbumService,
-    UserService
+    UserService,
+    FileService
   ],
 })
 export class AppModule {}

@@ -1,7 +1,9 @@
+import { JwtAuthGuard } from "@/auth/auth.guard";
 import { CreateArtistRequest } from "@/dto/artist/create-artist-request.dto";
-import { Body, Controller, Delete, Get, Param, Post, Query } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards } from "@nestjs/common";
 import { ArtistService } from "src/service/artist.service";
 
+@UseGuards(JwtAuthGuard)
 @Controller({
     path: '/artists'
 })

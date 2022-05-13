@@ -1,9 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { Artist } from "./artist";
-import BaseDataEntity from "./base-data-entity";
 import { Song } from "./song";
-
-
+import BaseDataEntity from "./base-data-entity";
 
 @Entity('album')
 export class Album extends BaseDataEntity {
@@ -17,7 +15,7 @@ export class Album extends BaseDataEntity {
     @Column({name:'price', nullable: false})
     price: number;
 
-    @Column({name:'image_url', length: 255})
+    @Column({name:'image_url', length: 255, nullable: true})
     imageUrl: string;
 
     @Column({name:'release_date'})

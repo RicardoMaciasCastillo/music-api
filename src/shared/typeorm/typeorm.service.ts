@@ -26,6 +26,7 @@ export class TypeOrmConfigService implements TypeOrmOptionsFactory {
       password: this.config.get<string>('DATABASE_PASSWORD'),
       namingStrategy: new SnakeNamingStrategy,
       synchronize: true,
+      dropSchema: false,
       logging: true,
       entities: [
         Album, Artist, Order, 

@@ -1,7 +1,8 @@
 import { JwtAuthGuard } from "@/auth/auth.guard";
-import { Body, ClassSerializerInterceptor, Controller, Get, Inject, Post, Req, UseGuards, UseInterceptors } from "@nestjs/common";
+import { Controller, Get, Inject, Req, UseGuards } from "@nestjs/common";
 import { UserService } from "src/service/user.service";
 
+@UseGuards(JwtAuthGuard)
 @Controller({
     path: '/users'
 })

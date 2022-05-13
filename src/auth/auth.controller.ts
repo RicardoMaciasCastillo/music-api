@@ -23,16 +23,12 @@ export class AuthController {
 
     @Post('/login')
     private login(@Body() body: LoginRequest): Promise<any> {
-        console.log('LOGINNNN', body);
         return this.service.login(body);
     }
 
     @Post('/refresh')
     @UseGuards(JwtAuthGuard)
     private refresh(@Req() req: Request): Promise<string | never> {
-
-        console.log('req:', req);
-
         return this.service.refresh(null);
     }
 

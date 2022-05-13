@@ -1,6 +1,9 @@
-import { Controller, Get, Param, Query } from "@nestjs/common";
+import { JwtAuthGuard } from "@/auth/auth.guard";
+import { CreateAlbumRequest } from "@/dto/album/create-album-request.dto";
+import { Body, Controller, Get, Param, Post, Query, UseGuards } from "@nestjs/common";
 import { AlbumService } from "src/service/album.service";
 
+@UseGuards(JwtAuthGuard)
 @Controller({
     path: '/albums'
 })
@@ -12,13 +15,18 @@ export class AlbumController {
 
     @Get('/get-by-artist/:artistId')
     public async getAlbumsByArtistId(@Param('artistId') artistId: number) {
-        console.log('ARTIST_ID:', artistId);
         return await this.albumService.getAlbumsByArtistId(artistId);
     }
 
-    @Get()
-    public async getAlbums(@Query() req: any) {
-        return await this.albumService.getAlbums(req.artistName);
+    @Get('/:albumId')
+    public async getAlbum(@Param('albumId') albumId: number) {
+        return await this.albumService.getAlbum(albumId);
     }
+
+    @Post()
+    public async createAlbum(@Body() album: CreateAlbumRequest) {
+        return await this.albumService.createAlbum(album);
+    }
+
 
 }
